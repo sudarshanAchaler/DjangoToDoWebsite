@@ -1,0 +1,64 @@
+
+{% extends 'ToDoapp/main.html' %}
+{% load static %}
+
+{% block content %}
+
+
+    <form action="CreateTask/" class="form mt-5 " method="POST">
+        {% csrf_token %}
+
+        <div class="row">
+
+            <div class="col-lg-10">
+                 
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Add task  eg. Watch Game of Thrones" name="taskName">
+            </div>
+    
+            <div class="col-lg-2">
+                <button type="submit" class="btn btn-primary  btn-block">Add Task ......</button>
+            </div>
+            
+
+        </div>
+        
+
+    </form>
+
+    
+
+<form >
+    <div class="row">
+
+        <ul class="list-group p-5">
+
+            {% for task in tasks %}
+                {% if task.complete %}
+
+                    <li class="list-group-item m-1" ><del> {{task.taskName}}</del><div class="btn-group" role="group" aria-label="Basic example" style="float: right;">
+                        <button type="submit" data-id="{{task.id}}" data-action="complete" class="btn btn-sm btn-success updateTask">Complete</button>
+                        <button type="submit" data-id="{{task.id}}" data-action="delete"  class="btn btn-danger btn-sm updateTask">Delete</button>
+                    </div></li>
+
+                {% else %}
+
+                    <li class="list-group-item m-1" >{{task.taskName}}<div class="btn-group" role="group" aria-label="Basic example" style="float: right;">
+                        <button type="submit" data-id="{{task.id}}" data-action="complete" class="btn btn-sm btn-success updateTask">Complete</button>
+                        <button type="submit" data-id="{{task.id}}" data-action="delete"  class="btn btn-danger btn-sm updateTask">Delete</button>
+                    </div></li>
+
+                {% endif %}
+
+            {% endfor %}
+            
+
+        </ul>
+    
+    
+    </div>
+
+</form>
+
+
+
+{% endblock content %}
